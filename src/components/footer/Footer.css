@@ -1,0 +1,20 @@
+.custom-footer {
+    background-color: rgba(0, 0, 0, 0.959); 
+    
+  }
+  
+  .custom-footer a {
+    line-height: 40px;
+  }
+  
+  .contact {
+    line-height: 40px;
+  }
+
+  .custom-footer p{
+   color:rgba(247, 243, 243, 0.745);
+  }
+  
+  .subfooter {
+    background-color: rgba(103, 103, 103, 0.124);
+  }

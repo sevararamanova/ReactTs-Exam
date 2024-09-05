@@ -1,0 +1,27 @@
+.content {
+    padding: 30px 0px;
+    background-color: rgb(250, 220, 238);
+}
+
+.content__look {
+    display: flex;
+    gap:80px;
+    margin-bottom: 100px;
+}
+
+.content__look img {
+    box-shadow: 2px 4px 30px rgb(153, 151, 151);
+    border-radius: 20%;
+    flex: 1;
+}
+
+.content__look p {
+    margin-top: 50px;
+    font-size: 18px;
+    flex:1;
+} 
+
+#tanalka1 {
+   position: relative;
+   left:90px;
+}
