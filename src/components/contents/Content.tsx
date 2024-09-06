@@ -5,29 +5,27 @@ import nail1 from '../../images/nail.jpeg';
 import powder1 from '../../images/powder.jpg';
 import tanalka3 from '../../images/tanalka3.webp';
 import tanalka4 from '../../images/tanalka4.webp';
+import Footer from '../../components/footer/Footer'
 import './Content.css';
 
 const Content = () => {
     useEffect(() => {
-      // Initialize AOS
       AOS.init({
-        duration: 1000, // Animation duration in milliseconds
-        once: true, // Whether animation should happen only once - while scrolling down
+        duration: 1000, 
+        once: true, 
       });
   
-      // Refresh AOS when the component mounts or updates
       AOS.refresh();
-  
-      // Cleanup on component unmount
+
       return () => {
-        AOS.refresh(); // Ensure AOS is properly cleaned up
+        AOS.refresh(); 
       };
     }, []);
   return (
     <div className='content'>
         <div className='container'>
-            <div className='content__look'>
-                <img src={powder1} width={470} data-aos="zoom-in" />
+            <div className='content__look  p-10'>
+                <img src={powder1} width={470} data-aos="zoom-in"/>
                 <p>Lorem ipsum, dolor sit amet consectetur <br></br>adipisicing elit. Consequatur rerum dignissimos nisi <br></br>fugiat temporibus veritatis atque voluptatum autem <br></br>aut architecto inventore quos, eligendi necessitatibus.<br></br> Maiores sequi accusamus laborum? Vitae, modi!</p>
             </div>
 
@@ -46,6 +44,7 @@ const Content = () => {
                 <img src={tanalka4} width={250} data-aos="zoom-in" />
             </div>
         </div>
+        <Footer />
     </div>
   )
 }

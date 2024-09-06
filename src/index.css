@@ -2,7 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-
+*{
+  padding:0px;
+  margin:0px;
+  box-sizing: border-box;
+}
 .container {
   width: 1440px;
   height: auto;
