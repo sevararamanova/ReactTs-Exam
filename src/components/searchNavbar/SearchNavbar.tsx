@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BsCart4, BsHeart } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
 import { RootState } from '../../redux/store';
-import { setQuery } from '../../redux/slices/searchSlices'; // To‘g‘ri import qilinganligini tekshiring
+import { setQuery } from '../../redux/slices/searchSlices'; 
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import placeholder from '../../images/placeholder.webp'; // Placeholder tasvirni import qilish
+import placeholder from '../../images/placeholder.webp'; 
 
 const SearchNavbar: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -18,7 +18,7 @@ const SearchNavbar: React.FC = () => {
     const heartCount = useSelector((state: RootState) => state.counter.hearts);
 
     useEffect(() => {
-        if (searchQuery.length > 2) { // Faqat 3 yoki undan ortiq belgilar kiritilganida qidiruv tavsiyalarini yuklash
+        if (searchQuery.length > 2) {
             axios.get(`/api/suggestions?query=${searchQuery}`)
                 .then(response => {
                     const data = Array.isArray(response.data) ? response.data : [];
@@ -87,7 +87,7 @@ const SearchNavbar: React.FC = () => {
                             value={searchQuery}
                             onChange={handleSearchChange}
                             onFocus={() => setShowSuggestions(true)}
-                            onBlur={() => setTimeout(() => setShowSuggestions(false), 100)} // Delay to allow suggestion click
+                            onBlur={() => setTimeout(() => setShowSuggestions(false), 100)} 
                         />
                         <button className="btn btn-outline-light" type="submit">
                             Search
@@ -109,7 +109,7 @@ const SearchNavbar: React.FC = () => {
                                     ))}
                                 </ul>
                             ) : (
-                                <div className="p-2">No suggestions</div>
+                                <div className="p-2">After writing, Click on search</div>
                             )}
                         </div>
                     )}
