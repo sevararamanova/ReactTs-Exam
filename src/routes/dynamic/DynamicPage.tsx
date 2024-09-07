@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../redux/store';
-import { getProducts, selectProductById } from '../../redux/slices/productSlice';
+import { getProducts } from '../../redux/slices/productSlice'; 
 import { toggleLike } from '../../redux/slices/likedSlice';
 import { incrementCart } from '../../redux/slices/counterSlice';
 import { useParams } from 'react-router-dom';
@@ -22,7 +22,7 @@ const DynamicPage: React.FC = () => {
     const [selectedVariant, setSelectedVariant] = useState<Variant | null>(null);
 
     const products = useSelector((state: RootState) => state.products.products);
-    const likedItems = useSelector((state: RootState) => Array.from(state.liked.likedItems));
+    const likedItems = useSelector((state: RootState) => state.liked.likedItems);
     const currency = useSelector((state: RootState) => state.currency.currentCurrency);
 
     useEffect(() => {
@@ -38,7 +38,7 @@ const DynamicPage: React.FC = () => {
 
     useEffect(() => {
         if (id) {
-            const foundProduct = selectProductById({ products: { products } }, parseInt(id, 10));
+            const foundProduct = products.find(product => product.id === parseInt(id, 10));
             if (foundProduct) {
                 setProduct(foundProduct);
                 if (foundProduct.variants && foundProduct.variants.length > 0) {
@@ -78,8 +78,9 @@ const DynamicPage: React.FC = () => {
         return <div className="flex items-center justify-center min-h-screen text-lg">Loading...</div>;
     }
 
-    const isLiked = likedItems.includes(product.id);
-    const convertedPrice = convertCurrency(product.price, currency);
+    const isLiked = likedItems.has(product.id);
+    const price = selectedVariant ? selectedVariant.price : product.price;
+    const convertedPrice = convertCurrency(price, currency);
 
     return (
         <div className="container mx-auto my-8 p-4">

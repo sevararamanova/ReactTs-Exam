@@ -15,6 +15,7 @@ export interface Product {
 export interface Variant {
   id: number;
   name: string;
+  price: number;  
 }
 
 export interface ProductsState {
@@ -24,8 +25,15 @@ export interface ProductsState {
 }
 export interface CartItem {
   id: number;
+  image_link?: string;
+  brand: string;
   name: string;
+  price_sign: string;
   price: number;
+  currency: string;
+  product_type: string;
+  quantity: number; 
+}
+export interface CartItem extends Product {
   quantity: number;
-  image_link?: string; // Add this line if `image_link` is optional
 }

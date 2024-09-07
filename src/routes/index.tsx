@@ -11,6 +11,8 @@ import LipsPage from '../routes/lips/Lips';
 import EyesPage from '../routes/eyes/Eyes';
 import NailsPage from '../routes/nails/Nails';
 import SearchedPage from '../routes/searchedPage/SearchedPage';
+import Blog from '../routes/blog/Blog';
+import BlogPost from '../routes/blog/BlogPost';
 
 
 const RouteController: React.FC = () => {
@@ -54,6 +56,14 @@ const RouteController: React.FC = () => {
     {
         path:'/search',
         element:<SearchedPage/>
+    },
+    {
+      path:'/blog',
+      element:<Blog />
+    },
+    {
+      path:'/blog/:id',
+      element: <BlogPost />
     }
   ]);
 

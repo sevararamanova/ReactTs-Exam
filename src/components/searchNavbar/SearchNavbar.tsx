@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BsCart4, BsHeart } from 'react-icons/bs';
-import { Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { RootState } from '../../redux/store';
-import { setQuery } from '../../redux/slices/searchSlices'; 
+import { setQuery } from '../../redux/slices/searchSlices';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import placeholder from '../../images/placeholder.webp'; 
+import placeholder from '../../images/placeholder.webp';
 
 const SearchNavbar: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');
@@ -49,12 +49,13 @@ const SearchNavbar: React.FC = () => {
         setSearchQuery(suggestion);
         dispatch(setQuery(suggestion));
         navigate(`/search?query=${encodeURIComponent(suggestion)}`);
+        setShowSuggestions(false);
     };
 
     return (
         <nav className="fixed top-0 left-0 w-full bg-black bg-opacity-70 shadow-lg z-50">
             <div className="container mx-auto flex justify-between items-center p-4 relative">
-                <Link to="/" className="text-gray-300 hover:text-pink-500">
+                <NavLink to="/" className="text-gray-100 hover:text-pink-500">
                     <span
                         className="font-bold text-pink-500 text-3xl"
                         style={{
@@ -66,14 +67,32 @@ const SearchNavbar: React.FC = () => {
                     >
                         SR Store
                     </span>
-                </Link>
+                </NavLink>
                 <div className="flex items-center space-x-8">
-                    <Link to="/" className='text-gray-300 hover:text-pink-500'>HOME</Link>
-                    <Link to="/allPage" className="text-gray-300 hover:text-pink-500">ALL</Link>
-                    <Link to="/skin" className="text-gray-300 hover:text-pink-500">SKIN</Link>
-                    <Link to="/lips" className="text-gray-300 hover:text-pink-500">LIPS</Link>
-                    <Link to="/eyes" className="text-gray-300 hover:text-pink-500">EYES</Link>
-                    <Link to="/nails" className="text-gray-300 hover:text-pink-500">NAILS</Link>
+                <NavLink to="/" className="text-gray-50 hover:text-pink-500" 
+                             style={({ isActive }) => ({ color: isActive ? 'pink' : 'inherit' })}>
+                        HOME
+                    </NavLink>
+                    <NavLink to="/allPage" className="text-gray-50 hover:text-pink-500" 
+                             style={({ isActive }) => ({ color: isActive ? 'pink' : 'inherit' })}>
+                        ALL
+                    </NavLink>
+                    <NavLink to="/skin" className="text-gray-50 hover:text-pink-500" 
+                             style={({ isActive }) => ({ color: isActive ? 'pink' : 'inherit' })}>
+                        SKIN
+                    </NavLink>
+                    <NavLink to="/lips" className="text-gray-50 hover:text-pink-500" 
+                             style={({ isActive }) => ({ color: isActive ? 'pink' : 'inherit' })}>
+                        LIPS
+                    </NavLink>
+                    <NavLink to="/eyes" className="text-gray-50 hover:text-pink-500" 
+                             style={({ isActive }) => ({ color: isActive ? 'pink' : 'inherit' })}>
+                        EYES
+                    </NavLink>
+                    <NavLink to="/nails" className="text-gray-50 hover:text-pink-500" 
+                             style={({ isActive }) => ({ color: isActive ? 'pink' : 'inherit' })}>
+                        NAILS
+                    </NavLink>
                 </div>
 
                 <form className="mx-4 relative" style={{ width: '300px' }} onSubmit={handleSearchSubmit}>
@@ -87,7 +106,7 @@ const SearchNavbar: React.FC = () => {
                             value={searchQuery}
                             onChange={handleSearchChange}
                             onFocus={() => setShowSuggestions(true)}
-                            onBlur={() => setTimeout(() => setShowSuggestions(false), 100)} 
+                            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                         />
                         <button className="btn btn-outline-light" type="submit">
                             Search
@@ -109,7 +128,7 @@ const SearchNavbar: React.FC = () => {
                                     ))}
                                 </ul>
                             ) : (
-                                <div className="p-2">After writing, Click on search</div>
+                                <div className="p-2">No suggestions available</div>
                             )}
                         </div>
                     )}
@@ -118,18 +137,18 @@ const SearchNavbar: React.FC = () => {
                 <div className="flex items-center space-x-10">
                     <div className="relative flex items-center space-x-4">
                         <div className="relative">
-                            <Link to="/likedPage" className="text-gray-200 hover:text-red-300">
+                            <NavLink to="/likedPage" className="text-gray-200 hover:text-red-300">
                                 <BsHeart size={26} />
-                            </Link>
+                            </NavLink>
                             <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                                 {heartCount}
                             </span>
                         </div>
 
                         <div className="relative">
-                            <Link to="/cartPage" className="text-gray-200 hover:text-blue-300">
+                            <NavLink to="/cartPage" className="text-gray-200 hover:text-blue-300">
                                 <BsCart4 size={26} />
-                            </Link>
+                            </NavLink>
                             <span className="absolute -top-2 -right-2 bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs font-bold">
                                 {cartQuantity}
                             </span>

@@ -12,7 +12,7 @@ import { FaHeart } from 'react-icons/fa';
 
 const LikedPage: React.FC = () => {
     const dispatch: AppDispatch = useDispatch();
-    const likedProductIds = useSelector((state: RootState) => state.liked.likedItems); // Ensure it's always defined
+    const likedProductIds = useSelector((state: RootState) => state.liked.likedItems); 
     const products = useSelector((state: RootState) => state.products.products || []);
     const status = useSelector((state: RootState) => state.products.status);
     const error = useSelector((state: RootState) => state.products.error);
@@ -36,7 +36,6 @@ const LikedPage: React.FC = () => {
         return <div className="text-center">Error: {error}</div>;
     }
 
-    // Ensure likedProductIds is a Set and products is an array
     const likedProducts = products.filter(product => likedProductIds.has(product.id));
 
     return (

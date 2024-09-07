@@ -5,15 +5,15 @@ import { setResults, setStatus, setError } from '../../redux/slices/searchSlices
 import axios from 'axios';
 import 'aos/dist/aos.css';
 import AOS from 'aos';
-import placeholder from '../../images/placeholder.webp'; // Placeholder image
+import placeholder from '../../images/placeholder.webp'; 
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const SearchResultsPage: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const query = useSelector((state: RootState) => state.search.query);
-  const brand = useSelector((state: RootState) => state.search.brand); // Brand filter
-  const productType = useSelector((state: RootState) => state.search.productType); // Product type filter
+  const brand = useSelector((state: RootState) => state.search.brand); 
+  const productType = useSelector((state: RootState) => state.search.productType); 
   const results = useSelector((state: RootState) => state.search.results);
   const status = useSelector((state: RootState) => state.search.status);
   const error = useSelector((state: RootState) => state.search.error);
@@ -22,7 +22,6 @@ const SearchResultsPage: React.FC = () => {
     if (query) {
       dispatch(setStatus('loading'));
 
-      // Construct the query string based on available filters
       let url = `${BASE_URL}?search=${query}`;
       if (brand) {
         url += `&brand=${brand}`;

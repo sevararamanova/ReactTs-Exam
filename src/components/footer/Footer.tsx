@@ -1,5 +1,4 @@
 
-
 import './Footer.css';
 import { MDBFooter, MDBContainer, MDBRow, MDBCol } from 'mdb-react-ui-kit';
 

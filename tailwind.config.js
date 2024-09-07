@@ -5,7 +5,12 @@ export default  {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'doggerblue': '#1E90FF',
+        'doggerblue-dark': '#1C86EE'
+      },
+    },
   },
   plugins: [],
 };
