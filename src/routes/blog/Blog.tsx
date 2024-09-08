@@ -1,109 +1,107 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Pagination from 'react-bootstrap/Pagination';
-import Card from 'react-bootstrap/Card';
-import Footer from '../../components/footer/Footer';
-import useSWR from 'swr';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-import placeholder from '../../images/placeholder.webp';
-import SearchNavbar from '../../components/searchNavbar/SearchNavbar';
-import './Blog.css'; // Maxsus CSS fayl
+import React from 'react';
+import { Container, Row, Col, Card, Button, Carousel, Form } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import nature1 from '../../images/nature1.jpeg';
+import nature2 from '../../images/nature2.jpeg';
+import nature3 from '../../images/nature3.jpeg';
 
-const baseURL = import.meta.env.VITE_BASE_URL;
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
-function Blog() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [data, setData] = useState<any[]>([]);
-  const postsPerPage = 6;
-  const navigate = useNavigate();
-
-  const { error, isLoading } = useSWR<any[]>(`${baseURL}/blog`, fetcher, {
-    onSuccess: (data) => {
-      setData(data);
-    },
-  });
-
-  useEffect(() => {
-    AOS.init({ duration: 1000 });
-  }, []);
-
-  if (error) {
-    return <h2 className="text-center text-red-500">Something went wrong: {error.message}</h2>;
+// Sample blog posts
+const blogPosts = [
+  {
+    title: 'Serene Beauty of Lush Green Landscapes',
+    description: 'Discover the serene beauty of lush green landscapes in this post.',
+    img: nature1,
+    link: '#'
+  },
+  {
+    title: 'Tranquility of a Peaceful Sunset',
+    description: 'Experience the tranquility of a peaceful sunset in this article.',
+    img: nature2,
+    link: '#'
+  },
+  {
+    title: 'Grand Mountain Ranges',
+    description: 'Marvel at the grandeur of towering mountain ranges.',
+    img: nature3,
+    link: '#'
   }
+];
 
-  if (isLoading) {
-    return <h2 className="text-center">Loading...</h2>;
-  }
-
-  const totalPages = Math.ceil((data.length || 0) / postsPerPage);
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
-
-  const handlePageClick = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
-
-  const handleCardClick = (postId: string) => {
-    navigate(`/blog/${postId}`);
-  };
-
+const BlogPage: React.FC = () => {
   return (
-    <div className="blog-page">
-      <SearchNavbar />
-      <div className="container py-4">
-        <h1 className="text-4xl font-extrabold text-center mb-8 text-blue-800">Our Blog</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {currentPosts.map((post: any) => (
-            <Card
-              key={post.id}
-              className="blog-card relative border p-4 rounded shadow-lg"
-              data-aos="fade-up"
-              onClick={() => handleCardClick(post.id)}
-            >
-              <Card.Img
-                variant="top"
-                className="w-full h-48 object-cover mb-4"
-                src={post.image || placeholder}
-                onError={(e) => (e.currentTarget.src = placeholder)}
-              />
+    <Container className="my-5">
+      {/* Carousel */}
+      <Carousel interval={2000}>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src={nature1}
+            alt="Nature 1"
+            style={{ height: '450px', objectFit: 'cover', borderRadius: '10px' }}
+          />
+          <Carousel.Caption>
+            <h3 className="carousel-title">Serene Landscapes</h3>
+            <p className="carousel-text">Explore the serenity of nature through our stunning images.</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src={nature2}
+            alt="Nature 2"
+            style={{ height: '450px', objectFit: 'cover', borderRadius: '10px' }}
+          />
+          <Carousel.Caption>
+            <h3 className="carousel-title">Peaceful Sunset</h3>
+            <p className="carousel-text">Experience tranquility with our breathtaking sunset views.</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src={nature3}
+            alt="Nature 3"
+            style={{ height: '450px', objectFit: 'cover', borderRadius: '10px' }}
+          />
+          <Carousel.Caption>
+            <h3 className="carousel-title">Majestic Mountains</h3>
+            <p className="carousel-text">Marvel at the grandeur of towering mountain ranges.</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
+
+      {/* Blog Posts */}
+      <Row className="my-5">
+        {blogPosts.map((post, index) => (
+          <Col md={4} key={index} className="mb-4">
+            <Card className="shadow-lg border-light rounded">
+              <Card.Img variant="top" src={post.img} style={{ borderRadius: '10px' }} />
               <Card.Body>
-                <Card.Title className="text-xl font-bold mb-2 text-blue-700">{post.title}</Card.Title>
-                <Card.Text className="text-gray-600 mb-2">{post.excerpt}</Card.Text>
-                <button className="text-blue-500 hover:text-blue-700">Read More</button>
+                <Card.Title className="card-title">{post.title}</Card.Title>
+                <Card.Text className="card-text">{post.description}</Card.Text>
+                <Button variant="dark" href={post.link} className="shadow-sm">Read More</Button>
               </Card.Body>
             </Card>
-          ))}
-        </div>
-        {totalPages > 1 && (
-          <div className="pagination-container mt-4 text-center">
-            <Pagination>
-              <Pagination.Prev
-                onClick={() => handlePageClick(currentPage - 1)}
-                disabled={currentPage === 1}
-              />
-              {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-                <Pagination.Item
-                  key={page}
-                  active={page === currentPage}
-                  onClick={() => handlePageClick(page)}
-                >
-                  {page}
-                </Pagination.Item>
-              ))}
-              <Pagination.Next
-                onClick={() => handlePageClick(currentPage + 1)}
-                disabled={currentPage === totalPages}
-              />
-            </Pagination>
-          </div>
-        )}
-      </div>
-      <Footer />
-    </div>
-  );
-}
+          </Col>
+        ))}
+      </Row>
 
-export default Blog;
+      {/* Newsletter Signup */}
+      <Row className="my-5">
+        <Col md={12} className="text-center">
+          <h3 className="newsletter-title">Subscribe to Our Newsletter</h3>
+          <Form className="d-inline-block">
+            <Form.Group controlId="formBasicEmail">
+              <Form.Control type="email" placeholder="Enter your email" className="newsletter-input" />
+            </Form.Group>
+            <Button variant="dark" type="submit" className="shadow-sm">
+              Subscribe
+            </Button>
+          </Form>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
+
+export default BlogPage;
